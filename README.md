@@ -15,7 +15,7 @@ Building may end with an error if number of threads is not 1. If you encounter
 any problems change a number in this line.
 
 ```shell
-cmake --build build -v -j4
+cmake --build build -v -j8
 ```
 
 ------
