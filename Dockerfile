@@ -4,8 +4,8 @@ FROM alpine:3.20
 ENV PATH=/usr/local/bin:$PATH
 
 ARG run_deps="python3 py3-numpy py3-pandas py3-matplotlib"
-ARG build_deps="python3-dev py3-pip py3-wheel git build-base linux-headers cmake xfce4-dev-tools swig"
-ARG python_deps="mypy absl-py mypy-protobuf virtualenv"
+ARG build_deps="python3-dev py3-pip py3-wheel py3-mypy py3-virtualenv git build-base linux-headers cmake xfce4-dev-tools swig"
+ARG python_deps="absl-py mypy-protobuf"
 
 RUN apk add --no-cache $run_deps
 
