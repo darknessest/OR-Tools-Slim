@@ -1,5 +1,5 @@
 # Create a virtual environment with all tools installed
-FROM alpine:3.15
+FROM alpine:3.20
 # Install system build dependencies
 ENV PATH=/usr/local/bin:$PATH
 
@@ -23,7 +23,7 @@ ENV GIT_BRANCH ${GIT_BRANCH:-stable}
 # pay attentions to the number of threads
 WORKDIR /root
 RUN apk add --no-cache $build_deps && \
-    pip3 install $python_deps && \
+    pip install $python_deps --no-cache-dir --break-system-packages && \
     git clone --depth=1 -b "${GIT_BRANCH}" --single-branch "$GIT_URL" /project && \
     cd /project && \
     cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DBUILD_DEPS=ON -DBUILD_PYTHON=ON &&\
@@ -31,7 +31,7 @@ RUN apk add --no-cache $build_deps && \
     cp build/python/dist/ortools-*.whl . && \
     NAME=$(ls *.whl | sed -e "s/\(ortools-[0-9\.]\+\)/\1+musl/") && mv *.whl "${NAME}" && \
     rm build/python/dist/ortools-*.whl && \
-    pip3 install *.whl && \
+    pip install *.whl && \
     cd .. && rm -rf project && \
     apk del $build_deps
 
