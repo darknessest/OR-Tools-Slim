@@ -31,7 +31,7 @@ RUN apk add --no-cache $build_deps && \
     cp build/python/dist/ortools-*.whl . && \
     NAME=$(ls *.whl | sed -e "s/\(ortools-[0-9\.]\+\)/\1+musl/") && mv *.whl "${NAME}" && \
     rm build/python/dist/ortools-*.whl && \
-    pip install *.whl && \
+    pip install *.whl --break-system-packages && \
     cd .. && rm -rf project && \
     apk del $build_deps
 
